@@ -52,6 +52,7 @@ typedef struct
     u8 lrum;
     u8 rrum;
     u8 mask[4];
+    pad_device_t *dev;
 } pad_status_t;
 
 #define DIGITAL_MODE 0x41
@@ -300,6 +301,8 @@ void pademu_setup(u8 ports, u8 vib)
 
         pad[i].lrum = 2;
         pad[i].rrum = 2;
+
+        pad[i].dev = NULL;
     }
 }
 
@@ -391,10 +394,20 @@ void pademu_cmd(int port, u8 *in, u8 *out, u8 out_size)
 
     mips_memset(out, 0x00, out_size);
 
-    if (!(PAD_GET_STATUS(port) & PAD_STATE_RUNNING)) {
+    if (!pad[port].dev || !(pad[port].dev->pad_get_data != NULL)) {
         pad[port].lrum = 2;
         pad[port].rrum = 2;
         return;
+    }
+
+    if (pad[port].dev->pad_get_data) {
+        // Check if device is running by trying to get data
+        u8 temp[32];
+        if (pad[port].dev->pad_get_data(temp, sizeof(temp), port) < 0) {
+            pad[port].lrum = 2;
+            pad[port].rrum = 2;
+            return;
+        }
     }
 
     out[0] = 0xFF;
@@ -426,12 +439,16 @@ void pademu_cmd(int port, u8 *in, u8 *out, u8 out_size)
             pad[port].mode_cfg = in[3];
         case 0x42: // read data
             if (in[1] == 0x42) {
-                if (pad[port].vibration) { // disable/enable vibration
-                    PAD_SET_RUMBLE(in[pad[port].lrum], in[pad[port].rrum], port);
+                if (pad[port].vibration && pad[port].dev && pad[port].dev->pad_set_rumble) { // disable/enable vibration
+                    pad[port].dev->pad_set_rumble(in[pad[port].lrum], in[pad[port].rrum], port);
                 }
             }
 
-            i = PAD_GET_DATA(&out[3], out_size - 3, port);
+            if (pad[port].dev && pad[port].dev->pad_get_data) {
+                i = pad[port].dev->pad_get_data(&out[3], out_size - 3, port);
+            } else {
+                i = 0;
+            }
 
             if (pad[port].mode_lock == 0) { // mode unlocked
                 if (pad[port].mode != i) {
@@ -459,13 +476,14 @@ void pademu_cmd(int port, u8 *in, u8 *out, u8 out_size)
             } else {
                 pad[port].mode_id = DIGITAL_MODE;
             }
-            PAD_SET_MODE(pad[port].mode, pad[port].mode_lock, port);
+            if (pad[port].dev && pad[port].dev->pad_set_mode)
+                pad[port].dev->pad_set_mode(pad[port].mode, pad[port].mode_lock, port);
             break;
 
         case 0x45: // query model and mode
             mips_memcpy(&out[3], &pademu_data[1], 6);
             out[5] = pad[port].mode;
-            out[3] = PAD_GET_MODEL(port);
+            out[3] = pad[port].dev && pad[port].dev->pad_get_data ? 3 : 0; // Generic model
             break;
 
         case 0x46: // query act
@@ -552,5 +570,30 @@ void pademu_mtap(sio2_transfer_data_t *td)
 
         case 0x22: // changes slot for mc
             break;
+    }
+}
+
+void pademu_connect(pad_device_t *dev)
+{
+    int i;
+    for (i = 0; i < MAX_PORTS; i++) {
+        if (pad[i].enabled && pad[i].dev == NULL) {
+            pad[i].dev = dev;
+            pad[i].dev->id = i;
+            DPRINTF("PADEMU: Device connected to port %d\n", i);
+            break;
+        }
+    }
+}
+
+void pademu_disconnect(pad_device_t *dev)
+{
+    int i;
+    for (i = 0; i < MAX_PORTS; i++) {
+        if (pad[i].dev == dev) {
+            pad[i].dev = NULL;
+            DPRINTF("PADEMU: Device disconnected from port %d\n", i);
+            break;
+        }
     }
 }
