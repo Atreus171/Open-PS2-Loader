@@ -71,6 +71,28 @@ static char hexDiscID[15];
 static char configSource[128];
 
 // forward declarations.
+void guiGameLoadGSMConfig(config_set_t *configSet, config_set_t *configGame);
+void guiGameLoadCheatsConfig(config_set_t *configSet, config_set_t *configGame);
+#ifdef PADEMU
+void guiGameLoadPadEmuConfig(config_set_t *configSet, config_set_t *configGame);
+void guiGameLoadPadMacroConfig(config_set_t *configSet, config_set_t *configGame);
+#endif
+void guiGameShowVMCMenu(int id, item_list_t *support);
+void guiGameShowGSConfig(void);
+void guiGameShowCheatConfig(void);
+#ifdef PADEMU
+void guiGameShowPadEmuConfig(int forceGlobal);
+void guiGameShowPadMacroConfig(int forceGlobal);
+#endif
+void guiGameShowCompatConfig(int id, item_list_t *support, config_set_t *configSet);
+void guiGameRemoveGlobalSettings(config_set_t *configGame);
+void guiGameRemoveSettings(config_set_t *configSet);
+void guiGameTestSettings(int id, item_list_t *support, config_set_t *configSet);
+void guiGameShowPadEmuConfig(int forceGlobal);
+void guiGameShowPadMacroConfig(int forceGlobal);
+void guiGameShowCompatConfig(int id, item_list_t *support, config_set_t *configSet);
+void guiGameShowOSDLanguageConfig(int forceGlobal);
+void guiGameSaveOSDLanguageGlobalConfig(config_set_t *configGame);
 static int guiGameSaveOSDLanguageGameConfig(config_set_t *configSet, int result);
 static void guiGameLoadOSDLanguageConfig(config_set_t *configSet, config_set_t *configGame);
 
