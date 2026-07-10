@@ -80,8 +80,8 @@ mips_memcpy:
     move    $a2, $v1
     addu    $a3, $a3, $a1
 7:
-    lwr     $v1, 0($a1)
-    lwl     $v1, 3($a1)
+    lwr     $v1,  0($a1)
+    lwl     $v1,  3($a1)
     addiu   $a1, $a1, 4
     addiu   $a0, $a0, 4
     bne     $a1, $a3, 7b
@@ -102,6 +102,24 @@ mips_memcpy:
     move    $a2, $v1
     addu    $a3, $a3, $a1
 10:
+    lw      $v1,  0($a1)
+    lw      $t0,  4($a1)
+    lw      $t1,  8($a1)
+    lw      $t2, 12($a1)
+    sw      $v1,  0($a0)
+    sw      $t0,  4($a0)
+    sw      $t1,  8($a0)
+    addiu   $a1, $a1, 16
+    addiu   $a0, $a0, 16
+    bne     $a1, $a3, 10b
+    sw      $t2, -4($a0)
+9:
+    andi    $v1, $a2, 3
+    subu    $a3, $a2, $v1
+    beqz    $a3, 2f
+    move    $a2, $v1
+    addu    $a3, $a3, $a1
+11:
     lw      $v1,  0($a1)
     lw      $t0,  4($a1)
     lw      $t1,  8($a1)
@@ -193,15 +211,20 @@ _dummy:
 __exp_smsutils:
 .word   0x41C00000
 .word   0x00000000
-.word   0x00000101
-.byte   's', 'm', 's', 'u'
-.byte   't', 'i', 'l', 's'
-.word   _start
-.word   _dummy
-.word   _dummy
-.word   _dummy
+.word   0x00000401    # 4 exports + 1
+.byte   's', 'm', 's', 'u', 0
+
+# String table
+.asciz  "mips_memcpy"
+.asciz  "mips_memset"
+.asciz  "RegisterLibraryEntries"
+.asciz  "sms_utils"
+
+# Address table (4 exports)
 .word   mips_memcpy
 .word   mips_memset
+.word   RegisterLibraryEntries
+.word   sms_utils
 .word   0x00000000
 
 __imp_sms_utils:
@@ -209,7 +232,7 @@ __imp_sms_utils:
 .word   0x00000000
 .word   0x00000101
 .byte   'l', 'o', 'a', 'd'
-.byte   'c', 'o', 'r', 'e'
+.byte   'c', 'o', 'r', 'e', 0
 RegisterLibraryEntries:
     jr      $ra
     addiu   $zero, $zero, 6
