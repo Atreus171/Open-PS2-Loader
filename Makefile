@@ -330,16 +330,16 @@ clean:	download_lwNBD
 	echo " -ds34bt"
 	$(MAKE) -C modules/ds34bt clean
 echo " -pademu"
-  $(MAKE) -C modules/pademu clean
-  $(MAKE) -C modules/pademu/btstack clean
-  $(MAKE) -C modules/pademu/ds3usb clean
-  $(MAKE) -C modules/pademu/ds4usb clean
-  $(MAKE) -C modules/pademu/xbox360usb clean
-  $(MAKE) -C modules/pademu/xboxoneusb clean
-  $(MAKE) -C modules/pademu/ds3bt clean
-  $(MAKE) -C modules/pademu/ds4bt clean
-  $(MAKE) -C modules/pademu/hidusb clean
-  echo "-pc tools"
+	$(MAKE) -C modules/pademu clean
+	$(MAKE) -C modules/pademu/btstack clean
+	$(MAKE) -C modules/pademu/ds3usb clean
+	$(MAKE) -C modules/pademu/ds4usb clean
+	$(MAKE) -C modules/pademu/xbox360usb clean
+	$(MAKE) -C modules/pademu/xboxoneusb clean
+	$(MAKE) -C modules/pademu/ds3bt clean
+	$(MAKE) -C modules/pademu/ds4bt clean
+	$(MAKE) -C modules/pademu/hidusb clean
+	echo "-pc tools"
 	$(MAKE) -C pc clean
 
 realclean: clean
