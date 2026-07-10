@@ -96,6 +96,17 @@ void guiGameSaveOSDLanguageGlobalConfig(config_set_t *configGame);
 static int guiGameSaveOSDLanguageGameConfig(config_set_t *configSet, int result);
 static void guiGameLoadOSDLanguageConfig(config_set_t *configSet, config_set_t *configGame);
 
+// Forward declarations for static functions called before definition
+#ifdef PADEMU
+static int guiGamePadEmuInfoUpdater(int modified);
+static int guiGamePadMacroUpdater(int modified);
+static int guiGameSavePadEmuGameConfig(config_set_t *configSet, int result);
+static int guiGameSavePadMacroGameConfig(config_set_t *configSet, int result);
+#endif
+static int guiGameOSDLanguageUpdater(int modified);
+static int guiGameSaveOSDLanguageGameConfig(config_set_t *configSet, int result);
+static void guiGameLoadOSDLanguageConfig(config_set_t *configSet, config_set_t *configGame);
+
 int guiGameAltStartupNameHandler(char *text, int maxLen)
 {
     int i;
