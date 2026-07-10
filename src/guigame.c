@@ -71,12 +71,6 @@ static char hexDiscID[15];
 static char configSource[128];
 
 // forward declarations.
-static void guiGameLoadGSMConfig(config_set_t *configSet, config_set_t *configGame);
-static void guiGameLoadCheatsConfig(config_set_t *configSet, config_set_t *configGame);
-#ifdef PADEMU
-static void guiGameLoadPadEmuConfig(config_set_t *configSet, config_set_t *configGame);
-static void guiGameLoadPadMacroConfig(config_set_t *configSet, config_set_t *configGame);
-#endif
 static int guiGameSaveOSDLanguageGameConfig(config_set_t *configSet, int result);
 static void guiGameLoadOSDLanguageConfig(config_set_t *configSet, config_set_t *configGame);
 
