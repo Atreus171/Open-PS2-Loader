@@ -1291,10 +1291,9 @@ static void guiGameLoadPadEmuConfig(config_set_t *configSet, config_set_t *confi
                 EnablePadEmu = 0;
             if (!configGetInt(configSet, CONFIG_ITEM_PADEMUSETTINGS, &PadEmuSettings))
                 PadEmuSettings = 0;
-            if (!configGetInt(configSet, CONFIG_ITEM_PADEMUMODULES, &gPadEmuModules))
+if (!configGetInt(configSet, CONFIG_ITEM_PADEMUMODULES, &gPadEmuModules))
                 gPadEmuModules = 0;
         }
-    }
     }
     // set gui settings.
     int PadEmuMtap = (PadEmuSettings >> 24) & 1;
