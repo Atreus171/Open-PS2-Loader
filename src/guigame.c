@@ -596,7 +596,6 @@ static int guiGamePadEmuUpdater(int modified)
     }
 
     diaGetInt(diaPadEmuConfig, PADCFG_PADEMU_ENABLE, &EnablePadEmu);
-    diaGetInt(diaPadEmuConfig, PADCFG_PADEMU_MODE, &PadEmuMode);
     diaGetInt(diaPadEmuConfig, PADCFG_PADPORT, &PadPort);
     diaGetInt(diaPadEmuConfig, PADCFG_PADEMU_PORT, &PadEmuPort);
     diaGetInt(diaPadEmuConfig, PADCFG_PADEMU_VIB, &PadEmuVib);
@@ -607,8 +606,6 @@ static int guiGamePadEmuUpdater(int modified)
 
     diaSetEnabled(diaPadEmuConfig, PADCFG_PADEMU_MTAP, EnablePadEmu);
     diaSetEnabled(diaPadEmuConfig, PADCFG_PADEMU_MTAP_PORT, PadEmuMtap);
-
-    diaSetEnabled(diaPadEmuConfig, PADCFG_PADEMU_MODE, EnablePadEmu);
 
     diaSetEnabled(diaPadEmuConfig, PADCFG_PADPORT, EnablePadEmu);
     diaSetEnabled(diaPadEmuConfig, PADCFG_PADEMU_VIB, PadEmuPort & EnablePadEmu);
@@ -746,7 +743,6 @@ static int guiGamePadEmuInfoUpdater(int modified)
 void guiGameShowPadEmuConfig(int forceGlobal)
 {
     const char *settingsSource[] = {_l(_STR_GLOBAL_SETTINGS), _l(_STR_PERGAME_SETTINGS), NULL};
-    const char *PadEmuModes[] = {_l(_STR_DS34USB_MODE), _l(_STR_DS34BT_MODE), NULL};
 
     int PadEmuMtap, PadEmuMtapPort, i;
 
@@ -757,7 +753,6 @@ void guiGameShowPadEmuConfig(int forceGlobal)
         guiGameLoadPadEmuConfig(NULL, configGetByType(CONFIG_GAME));
 
     diaSetEnum(diaPadEmuConfig, PADCFG_PADEMU_SOURCE, settingsSource);
-    diaSetEnum(diaPadEmuConfig, PADCFG_PADEMU_MODE, PadEmuModes);
 
     PadEmuMtap = (PadEmuSettings >> 24) & 1;
     PadEmuMtapPort = ((PadEmuSettings >> 25) & 1) + 1;
@@ -1269,7 +1264,6 @@ static void guiGameLoadPadEmuConfig(config_set_t *configSet, config_set_t *confi
     diaSetInt(diaPadEmuConfig, PADCFG_PADEMU_SOURCE, gPadEmuSource);
     diaSetInt(diaPadEmuConfig, PADCFG_PADEMU_ENABLE, EnablePadEmu);
 
-    diaSetInt(diaPadEmuConfig, PADCFG_PADEMU_MODE, PadEmuSettings & 0xFF);
     diaSetInt(diaPadEmuConfig, PADCFG_PADPORT, 0);
     diaSetInt(diaPadEmuConfig, PADCFG_PADEMU_PORT, (PadEmuSettings >> 8) & 1);
     diaSetInt(diaPadEmuConfig, PADCFG_PADEMU_VIB, (PadEmuSettings >> 16) & 1);
