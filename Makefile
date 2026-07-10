@@ -329,7 +329,7 @@ clean:	download_lwNBD
 	$(MAKE) -C modules/ds34usb clean
 	echo " -ds34bt"
 	$(MAKE) -C modules/ds34bt clean
-echo " -pademu"
+	echo " -pademu"
 	$(MAKE) -C modules/pademu clean
 	$(MAKE) -C modules/pademu/btstack clean
 	$(MAKE) -C modules/pademu/ds3usb clean
