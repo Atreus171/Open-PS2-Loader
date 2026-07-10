@@ -63,6 +63,7 @@ struct EECoreConfig_t
     // Keep them eitherway.
     int EnablePadEmuOp;
     int PadEmuSettings;
+    int PadEmuModules;
     int PadMacroSettings;
 
     int EnableGSMOp;

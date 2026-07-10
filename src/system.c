@@ -934,6 +934,7 @@ void sysLaunchLoaderElf(const char *filename, const char *mode_str, int size_cdv
 #ifdef PADEMU
     config->EnablePadEmuOp = gEnablePadEmu;
     config->PadEmuSettings = (unsigned int)(gPadEmuSettings >> 8);
+    config->PadEmuModules = (unsigned int)(gPadEmuModules);
     config->PadMacroSettings = (unsigned int)(gPadMacroSettings);
 #endif
 
