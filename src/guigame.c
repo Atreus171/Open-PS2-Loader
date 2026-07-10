@@ -90,8 +90,6 @@ void guiGameRemoveSettings(config_set_t *configSet);
 void guiGameTestSettings(int id, item_list_t *support, config_set_t *configSet);
 void guiGameShowOSDLanguageConfig(int forceGlobal);
 void guiGameSaveOSDLanguageGlobalConfig(config_set_t *configGame);
-static int guiGameSaveOSDLanguageGameConfig(config_set_t *configSet, int result);
-static void guiGameLoadOSDLanguageConfig(config_set_t *configSet, config_set_t *configGame);
 
 int guiGameAltStartupNameHandler(char *text, int maxLen)
 {
