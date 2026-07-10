@@ -549,6 +549,22 @@ modules/pademu/xboxoneusb/xboxoneusb.irx: modules/pademu/xboxoneusb
 $(EE_ASM_DIR)xboxoneusb.s: modules/pademu/xboxoneusb/xboxoneusb.irx
 	$(BIN2S) $< $@ xboxoneusb_irx
 
+# Copy module object files to main obj directory
+$(EE_OBJS_DIR)xbox360usb.o: modules/pademu/xbox360usb/xbox360usb.irx
+	cp modules/pademu/xbox360usb/obj.xbox360usb/xbox360usb.o $@
+
+$(EE_OBJS_DIR)xboxoneusb.o: modules/pademu/xboxoneusb/xboxoneusb.irx
+	cp modules/pademu/xboxoneusb/obj.xboxoneusb/xboxoneusb.o $@
+
+$(EE_OBJS_DIR)pademu.o: modules/pademu/pademu.irx
+	cp modules/pademu/obj.pademu/pademu.o $@
+
+$(EE_OBJS_DIR)ds34usb.o: modules/ds34usb/iop/ds34usb.irx
+	cp modules/ds34usb/iop/ds34usb.o $@
+
+$(EE_OBJS_DIR)ds34bt.o: modules/ds34bt/iop/ds34bt.irx
+	cp modules/ds34bt/iop/ds34bt.o $@
+
 $(EE_ASM_DIR)bdm.c: $(PS2SDK)/iop/irx/bdm.irx | $(EE_ASM_DIR)
 	$(BIN2C) $< $@ $(*F)_irx
 
