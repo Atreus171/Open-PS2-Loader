@@ -88,24 +88,10 @@ void guiGameShowCompatConfig(int id, item_list_t *support, config_set_t *configS
 void guiGameRemoveGlobalSettings(config_set_t *configGame);
 void guiGameRemoveSettings(config_set_t *configSet);
 void guiGameTestSettings(int id, item_list_t *support, config_set_t *configSet);
-void guiGameShowPadEmuConfig(int forceGlobal);
-void guiGameShowPadMacroConfig(int forceGlobal);
-void guiGameShowCompatConfig(int id, item_list_t *support, config_set_t *configSet);
 void guiGameShowOSDLanguageConfig(int forceGlobal);
 void guiGameSaveOSDLanguageGlobalConfig(config_set_t *configGame);
 static int guiGameSaveOSDLanguageGameConfig(config_set_t *configSet, int result);
 static void guiGameLoadOSDLanguageConfig(config_set_t *configSet, config_set_t *configGame);
-
-// Forward declarations for static functions called before definition
-#ifdef PADEMU
-int guiGamePadEmuInfoUpdater(int modified);
-int guiGamePadMacroUpdater(int modified);
-int guiGameSavePadEmuGameConfig(config_set_t *configSet, int result);
-int guiGameSavePadMacroGameConfig(config_set_t *configSet, int result);
-#endif
-int guiGameOSDLanguageUpdater(int modified);
-int guiGameSaveOSDLanguageGameConfig(config_set_t *configSet, int result);
-void guiGameLoadOSDLanguageConfig(config_set_t *configSet, config_set_t *configGame);
 
 int guiGameAltStartupNameHandler(char *text, int maxLen)
 {
