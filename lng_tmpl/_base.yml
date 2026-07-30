@@ -698,5 +698,6 @@ gui_strings:
   string: Pad Emulator Modules
 - label: HINT_PADEMU_MODULES
   string: Select which pad emulator modules to load.
+
 - label: CONFIGURE
   string: Configure

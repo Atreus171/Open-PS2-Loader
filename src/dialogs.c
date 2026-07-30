@@ -567,7 +567,7 @@ struct UIItem diaPadEmuConfig[] = {
     {UI_LABEL, 0, 1, 1, -1, -50, 0, {.label = {NULL, _STR_PADEMU_MODULES}}},
     {UI_SPACER},
     {UI_ENUM, PADCFG_PADEMU_MODULES_LIST, 1, 1, _STR_HINT_PADEMU_MODULES, 0, 0, {.intvalue = {0, 0}}},
-{UI_BREAK},
+    {UI_BREAK},
     {UI_BREAK},
 
     {UI_LABEL, 0, 1, 1, -1, -50, 0, {.label = {NULL, _STR_MTAP_ENABLE}}},

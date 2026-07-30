@@ -76,20 +76,20 @@ void guiGameLoadCheatsConfig(config_set_t *configSet, config_set_t *configGame);
 #ifdef PADEMU
 void guiGameLoadPadEmuConfig(config_set_t *configSet, config_set_t *configGame);
 void guiGameLoadPadMacroConfig(config_set_t *configSet, config_set_t *configGame);
+void guiGameShowPadEmuConfig(int forceGlobal);
+void guiGameShowPadMacroConfig(int forceGlobal);
 #endif
 void guiGameShowVMCMenu(int id, item_list_t *support);
 void guiGameShowGSConfig(void);
 void guiGameShowCheatConfig(void);
-#ifdef PADEMU
-void guiGameShowPadEmuConfig(int forceGlobal);
-void guiGameShowPadMacroConfig(int forceGlobal);
-#endif
 void guiGameShowCompatConfig(int id, item_list_t *support, config_set_t *configSet);
 void guiGameRemoveGlobalSettings(config_set_t *configGame);
 void guiGameRemoveSettings(config_set_t *configSet);
 void guiGameTestSettings(int id, item_list_t *support, config_set_t *configSet);
 void guiGameShowOSDLanguageConfig(int forceGlobal);
 void guiGameSaveOSDLanguageGlobalConfig(config_set_t *configGame);
+int guiGameSaveOSDLanguageGameConfig(config_set_t *configSet, int result);
+void guiGameLoadOSDLanguageConfig(config_set_t *configSet, config_set_t *configGame);
 
 int guiGameAltStartupNameHandler(char *text, int maxLen)
 {
@@ -1302,7 +1302,7 @@ static void guiGameLoadPadEmuConfig(config_set_t *configSet, config_set_t *confi
                 EnablePadEmu = 0;
             if (!configGetInt(configSet, CONFIG_ITEM_PADEMUSETTINGS, &PadEmuSettings))
                 PadEmuSettings = 0;
-if (!configGetInt(configSet, CONFIG_ITEM_PADEMUMODULES, &gPadEmuModules))
+            if (!configGetInt(configSet, CONFIG_ITEM_PADEMUMODULES, &gPadEmuModules))
                 gPadEmuModules = 0;
         }
     }

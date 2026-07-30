@@ -540,6 +540,7 @@ $(EE_ASM_DIR)pademu.s: modules/pademu/pademu.irx
 modules/pademu/xbox360usb/xbox360usb.irx: modules/pademu/xbox360usb
 	$(MAKE) -C $<
 
+
 $(EE_ASM_DIR)xbox360usb.s: modules/pademu/xbox360usb/xbox360usb.irx
 	$(BIN2S) $< $@ xbox360usb_irx
 
