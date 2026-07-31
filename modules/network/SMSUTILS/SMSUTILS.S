@@ -120,24 +120,6 @@ mips_memcpy:
     move    $a2, $v1
     addu    $a3, $a3, $a1
 11:
-    lw      $v1,  0($a1)
-    lw      $t0,  4($a1)
-    lw      $t1,  8($a1)
-    lw      $t2, 12($a1)
-    sw      $v1,  0($a0)
-    sw      $t0,  4($a0)
-    sw      $t1,  8($a0)
-    addiu   $a1, $a1, 16
-    addiu   $a0, $a0, 16
-    bne     $a1, $a3, 10b
-    sw      $t2, -4($a0)
-9:
-    andi    $v1, $a2, 3
-    subu    $a3, $a2, $v1
-    beqz    $a3, 2f
-    move    $a2, $v1
-    addu    $a3, $a3, $a1
-11:
     lw      $v1, 0($a1)
     addiu   $a1, $a1, 4
     addiu   $a0, $a0, 4
