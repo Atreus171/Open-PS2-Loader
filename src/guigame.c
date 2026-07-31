@@ -649,21 +649,6 @@ static int guiGamePadEmuUpdater(int modified)
             }
         }
 
-        if (modified) {
-        if (PadEmuMtap) {
-            diaSetEnum(diaPadEmuConfig, PADCFG_PADPORT, PadEmuPorts_enums[PadEmuMtapPort]);
-            diaSetEnabled(diaPadEmuConfig, PADCFG_PADEMU_PORT, (PadPort == 0) & EnablePadEmu);
-            PadEmuSettings |= 0x00000E00;
-        } else {
-            diaSetEnum(diaPadEmuConfig, PADCFG_PADPORT, PadEmuPorts_enums[0]);
-            diaSetEnabled(diaPadEmuConfig, PADCFG_PADEMU_PORT, EnablePadEmu);
-            PadEmuSettings &= 0xFFFF03FF;
-            if (PadPort > 1) {
-                PadPort = 0;
-                diaSetInt(diaPadEmuConfig, PADCFG_PADPORT, PadPort);
-            }
-        }
-
         if (PadPort != oldPadPort) {
             diaSetInt(diaPadEmuConfig, PADCFG_PADEMU_PORT, (PadEmuSettings >> (8 + PadPort)) & 1);
             diaSetInt(diaPadEmuConfig, PADCFG_PADEMU_VIB, (PadEmuSettings >> (16 + PadPort)) & 1);
