@@ -31,7 +31,7 @@
 #include "thevent.h"
 #include "thmsgbx.h"
 #include "thsemap.h"
-#include "usbd.d"
+#include "usbd.h"
 #include "vblank.h"
 #include "xloadcore.h"
 
