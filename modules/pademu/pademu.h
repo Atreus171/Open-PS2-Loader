@@ -5,7 +5,6 @@
    Review OpenUsbLd README & LICENSE files for further details.
    */
 
-#include <ioman.h>
 #include <intrman.h>
 #include <loadcore.h>
 #include <sifcmd.h>
@@ -74,5 +73,10 @@ void pademu_cmd(int port, u8 *in, u8 *out, u8 out_size);
 void pademu_mtap(sio2_transfer_data_t *td);
 void pademu_connect(pad_device_t *dev);
 void pademu_disconnect(pad_device_t *dev);
+
+#define pademu_IMPORTS_start DECLARE_IMPORT_TABLE(pademu, 1, 1)
+#define I_pademu_connect DECLARE_IMPORT(5, pademu_connect)
+#define I_pademu_disconnect DECLARE_IMPORT(6, pademu_disconnect)
+#define pademu_IMPORTS_end END_IMPORT_TABLE
 
 extern struct irx_export_table _exp_pademu;
