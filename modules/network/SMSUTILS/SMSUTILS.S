@@ -193,20 +193,15 @@ _dummy:
 __exp_smsutils:
 .word   0x41C00000
 .word   0x00000000
-.word   0x00000401    # 4 exports + 1
-.byte   's', 'm', 's', 'u', 0
-
-# String table
-.asciz  "mips_memcpy"
-.asciz  "mips_memset"
-.asciz  "RegisterLibraryEntries"
-.asciz  "sms_utils"
-
-# Address table (4 exports)
+.word   0x00000101
+.byte   's', 'm', 's', 'u'
+.byte   't', 'i', 'l', 's'
+.word   _start
+.word   _dummy
+.word   _dummy
+.word   _dummy
 .word   mips_memcpy
 .word   mips_memset
-.word   RegisterLibraryEntries
-.word   sms_utils
 .word   0x00000000
 
 __imp_sms_utils:
