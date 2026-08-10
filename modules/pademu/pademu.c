@@ -9,34 +9,6 @@
 #include "pademu.h"
 #include "padmacro.h"
 
-#ifdef BT
-
-#include "ds34bt.h"
-
-#define PAD_INIT            ds34bt_init
-#define PAD_GET_STATUS      ds34bt_get_status
-#define PAD_RESET           ds34bt_reset
-#define PAD_GET_DATA        ds34bt_get_data
-#define PAD_SET_RUMBLE      ds34bt_set_rumble
-#define PAD_SET_MODE        ds34bt_set_mode
-#define PAD_GET_MODEL(port) 3
-
-#elif defined(USB)
-
-#include "ds34usb.h"
-
-#define PAD_INIT       ds34usb_init
-#define PAD_GET_STATUS ds34usb_get_status
-#define PAD_RESET      ds34usb_reset
-#define PAD_GET_DATA   ds34usb_get_data
-#define PAD_GET_MODEL  ds34usb_get_model
-#define PAD_SET_RUMBLE ds34usb_set_rumble
-#define PAD_SET_MODE   ds34usb_set_mode
-
-#else
-#error "must define mode"
-#endif
-
 //#define DPRINTF(x...) printf(x)
 #define DPRINTF(x...)
 
@@ -70,7 +42,6 @@ PtrRegisterLibraryEntires pRegisterLibraryEntires; /* Pointer to RegisterLibrary
 Sio2McProc pSio2man25, pSio2man51;                 /* Pointers to SIO2MAN routines */
 pad_status_t pad[MAX_PORTS];
 
-static u8 pad_inited = 0;
 static u8 pad_enable = 0;
 static u8 pad_options = 0;
 
@@ -148,7 +119,13 @@ int _start(int argc, char *argv[])
 
 void _exit(int mode)
 {
-    PAD_RESET();
+    int i;
+
+    for (i = 0; i < MAX_PORTS; i++) {
+        if (pad[i].dev) {
+            pademu_disconnect(pad[i].dev);
+        }
+    }
 }
 
 int install_sio2hook()
@@ -326,10 +303,6 @@ void pademu(sio2_transfer_data_t *td)
 
     td->stat6c = 0x1100; //?
     td->stat70 = 0x0F;   //?
-
-    if (!pad_inited) {
-        pad_inited = PAD_INIT(pad_enable, pad_options);
-    }
 
     if (port2 == 1) {
         // find next cmd

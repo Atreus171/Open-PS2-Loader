@@ -209,7 +209,7 @@ __imp_sms_utils:
 .word   0x00000000
 .word   0x00000101
 .byte   'l', 'o', 'a', 'd'
-.byte   'c', 'o', 'r', 'e', 0
+.byte   'c', 'o', 'r', 'e'
 RegisterLibraryEntries:
     jr      $ra
     addiu   $zero, $zero, 6
