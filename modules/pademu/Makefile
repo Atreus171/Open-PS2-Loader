@@ -1,5 +1,5 @@
 IOP_BIN = pademu.irx
-IOP_OBJS = pademu.o sys_utils.o imports.o exports.o
+IOP_OBJS = pademu.o sys_utils.o imports.o exports.o padmacro.o ds34common.o
 IOP_OBJS_DIR = obj.pademu/
 
 ifeq ($(VMC),1)
