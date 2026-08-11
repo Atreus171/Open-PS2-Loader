@@ -98,6 +98,12 @@ void lngEnd();
 void thmEnd();
 void rmEnd();
 
+#ifdef PADEMU
+int g_sysPademuLoad = 0;
+int g_sysXbox360Load = 0;
+int g_sysXboxoneLoad = 0;
+#endif
+
 static void poweroffHandler(void *arg);
 
 int sysLoadModuleBuffer(void *buffer, int size, int argc, char *argv)
@@ -289,11 +295,11 @@ void sysReset(int modload_mask)
 
     if (modload_mask & SYS_LOAD_USB_MODULES) {
         LOG("[PADEMU]:\n");
-        sysLoadModuleBuffer(&pademu_irx, size_pademu_irx, sizeof(padmenuArgs), (char *)padmenuArgs);
+        g_sysPademuLoad = sysLoadModuleBuffer(&pademu_irx, size_pademu_irx, sizeof(padmenuArgs), (char *)padmenuArgs);
         LOG("[XBOX360USB]:\n");
-        sysLoadModuleBuffer(&xbox360usb_irx, size_xbox360usb_irx, 0, NULL);
+        g_sysXbox360Load = sysLoadModuleBuffer(&xbox360usb_irx, size_xbox360usb_irx, 0, NULL);
         LOG("[XBOXONEUSB]:\n");
-        sysLoadModuleBuffer(&xboxoneusb_irx, size_xboxoneusb_irx, 0, NULL);
+        g_sysXboxoneLoad = sysLoadModuleBuffer(&xboxoneusb_irx, size_xboxoneusb_irx, 0, NULL);
     }
 #endif
 

@@ -22,6 +22,16 @@ void sysLaunchLoaderElf(const char *filename, const char *mode_str, int size_cdv
 
 int sysExecElf(const char *path);
 int sysLoadModuleBuffer(void *buffer, int size, int argc, char *argv);
+
+// Module load results surfaced by sysReset/bdmLoadModules so failures are
+// visible on-screen instead of being silently dropped.
+extern int g_sysUsbdLoad;
+extern int g_sysUsbmassLoad;
+#ifdef PADEMU
+extern int g_sysPademuLoad;
+extern int g_sysXbox360Load;
+extern int g_sysXboxoneLoad;
+#endif
 int sysCheckMC(void);
 int sysCheckVMC(const char *prefix, const char *sep, char *name, int createSize, vmc_superblock_t *vmc_superblock);
 
