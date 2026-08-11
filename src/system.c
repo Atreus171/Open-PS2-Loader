@@ -271,6 +271,13 @@ void sysReset(int modload_mask)
     LOG("[AUDSRV]:\n");
     sysLoadModuleBuffer(&audsrv_irx, size_audsrv_irx, 0, NULL);
 
+    // smsutils provides mips_memcpy/mips_memset used by pademu (built with
+    // USE_SMSUTILS). In-game it is always present via cdvdman, but in the
+    // menu it was only loaded when Ethernet started, so pademu/xbox* failed
+    // to load (unresolved import) for USB-only users. Load it unconditionally.
+    LOG("[SMSUTILS]:\n");
+    sysLoadModuleBuffer(&smsutils_irx, size_smsutils_irx, 0, NULL);
+
 #ifdef PADEMU
     int ds3pads = 1; // only one pad enabled
 
