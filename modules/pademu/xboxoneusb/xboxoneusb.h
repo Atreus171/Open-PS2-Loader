@@ -12,6 +12,9 @@
 #define XBOX_ONE_PID3 0x02E3  // Microsoft X-Box One Elite pad
 #define XBOX_ONE_PID4 0x02EA  // Microsoft X-Box One S pad
 #define XBOX_ONE_PID13 0x0B0A // Microsoft X-Box One Adaptive Controller
+#define XBOX_ONE_PID14 0x0B12 // Microsoft X-Box Series S|X pad
+#define XBOX_ONE_PID15 0x0B13 // Microsoft X-Box Series S|X pad (firmware 2021)
+#define XBOX_ONE_PID16 0x0B22 // Microsoft X-Box Series S|X pad (firmware 2023)
 
 // Unofficial controllers
 #define XBOX_VID2 0x0738   // Mad Catz

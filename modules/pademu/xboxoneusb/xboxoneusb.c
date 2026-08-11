@@ -49,7 +49,8 @@ int usb_probe(int devId)
     if ((device->idVendor == XBOX_VID || device->idVendor == XBOX_VID2 || device->idVendor == XBOX_VID3 || device->idVendor == XBOX_VID4 || device->idVendor == XBOX_VID5 || device->idVendor == XBOX_VID6) &&
         (device->idProduct == XBOX_ONE_PID1 || device->idProduct == XBOX_ONE_PID2 || device->idProduct == XBOX_ONE_PID3 || device->idProduct == XBOX_ONE_PID4 ||
          device->idProduct == XBOX_ONE_PID5 || device->idProduct == XBOX_ONE_PID6 || device->idProduct == XBOX_ONE_PID7 || device->idProduct == XBOX_ONE_PID8 ||
-         device->idProduct == XBOX_ONE_PID9 || device->idProduct == XBOX_ONE_PID10 || device->idProduct == XBOX_ONE_PID11 || device->idProduct == XBOX_ONE_PID12 || device->idProduct == XBOX_ONE_PID13))
+         device->idProduct == XBOX_ONE_PID9 || device->idProduct == XBOX_ONE_PID10 || device->idProduct == XBOX_ONE_PID11 || device->idProduct == XBOX_ONE_PID12 || device->idProduct == XBOX_ONE_PID13 ||
+         device->idProduct == XBOX_ONE_PID14 || device->idProduct == XBOX_ONE_PID15 || device->idProduct == XBOX_ONE_PID16))
         return 1;
 
     return 0;

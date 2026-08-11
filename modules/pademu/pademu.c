@@ -554,7 +554,20 @@ void pademu_connect(pad_device_t *dev)
             pad[i].dev = dev;
             pad[i].dev->id = i;
             DPRINTF("PADEMU: Device connected to port %d\n", i);
-            break;
+            return;
+        }
+    }
+
+    // No pre-enabled port available (menu mode, loaded with pad_enable=0).
+    // Enable the first free port on demand so the physical pad keeps working
+    // until a pademu device is actually connected.
+    for (i = 0; i < MAX_PORTS; i++) {
+        if (pad[i].dev == NULL) {
+            pad[i].enabled = 1;
+            pad[i].dev = dev;
+            pad[i].dev->id = i;
+            DPRINTF("PADEMU: Device connected to port %d (on demand)\n", i);
+            return;
         }
     }
 }
@@ -565,6 +578,10 @@ void pademu_disconnect(pad_device_t *dev)
     for (i = 0; i < MAX_PORTS; i++) {
         if (pad[i].dev == dev) {
             pad[i].dev = NULL;
+            if (pad_enable == 0) {
+                // On-demand mode (menu): restore the port to a physical pad.
+                pad[i].enabled = 0;
+            }
             DPRINTF("PADEMU: Device disconnected from port %d\n", i);
             break;
         }

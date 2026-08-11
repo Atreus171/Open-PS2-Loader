@@ -280,6 +280,21 @@ void sysReset(int modload_mask)
         ds34usb_init();
         ds34bt_init();
     }
+
+    // The pademu core / Xbox modules are loaded in the menu as well so that
+    // Xbox controllers work for navigation, not just in-game.
+    // pad_enable=0: ports are enabled on-demand when a controller connects,
+    // so physical pads and DS3/DS4 keep working until then.
+    static const unsigned char padmenuArgs[8] = {0x00, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+
+    if (modload_mask & SYS_LOAD_USB_MODULES) {
+        LOG("[PADEMU]:\n");
+        sysLoadModuleBuffer(&pademu_irx, size_pademu_irx, sizeof(padmenuArgs), (char *)padmenuArgs);
+        LOG("[XBOX360USB]:\n");
+        sysLoadModuleBuffer(&xbox360usb_irx, size_xbox360usb_irx, 0, NULL);
+        LOG("[XBOXONEUSB]:\n");
+        sysLoadModuleBuffer(&xboxoneusb_irx, size_xboxoneusb_irx, 0, NULL);
+    }
 #endif
 
     fileXioInit();
