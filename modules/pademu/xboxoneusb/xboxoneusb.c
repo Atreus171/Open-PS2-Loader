@@ -181,12 +181,35 @@ static void usb_config_set(int result, int count, void *arg)
     PollSema(xboxonedev[pad].sema);
 
     cmdcnt = 0;
-    usb_buf[0] = 0x05;
-    usb_buf[1] = 0x20;
+
+    // GIP power-on (required for all pads with 2015+ firmware, incl. Series S|X)
+    usb_buf[0] = 0x05; // GIP_CMD_POWER
+    usb_buf[1] = 0x20; // GIP_OPT_INTERNAL
     usb_buf[2] = cmdcnt++;
     usb_buf[3] = 0x01;
-    usb_buf[4] = 0x00;
+    usb_buf[4] = 0x00; // GIP_PWR_ON
     UsbInterruptTransfer(xboxonedev[pad].outEndp, usb_buf, 5, NULL, NULL);
+    DelayThread(10000);
+
+    // GIP LED on (required for some pads to start sending input reports)
+    usb_buf[0] = 0x0a; // GIP_CMD_LED
+    usb_buf[1] = 0x20; // GIP_OPT_INTERNAL
+    usb_buf[2] = cmdcnt++;
+    usb_buf[3] = 0x03;
+    usb_buf[4] = 0x00;
+    usb_buf[5] = 0x01; // GIP_LED_ON
+    usb_buf[6] = 0x14;
+    UsbInterruptTransfer(xboxonedev[pad].outEndp, usb_buf, 7, NULL, NULL);
+    DelayThread(10000);
+
+    // GIP auth done (required for some pads to start sending input reports)
+    usb_buf[0] = 0x06; // GIP_CMD_AUTHENTICATE
+    usb_buf[1] = 0x20; // GIP_OPT_INTERNAL
+    usb_buf[2] = cmdcnt++;
+    usb_buf[3] = 0x02;
+    usb_buf[4] = 0x01;
+    usb_buf[5] = 0x00;
+    UsbInterruptTransfer(xboxonedev[pad].outEndp, usb_buf, 6, NULL, NULL);
     DelayThread(10000);
 
     SignalSema(xboxonedev[pad].sema);
