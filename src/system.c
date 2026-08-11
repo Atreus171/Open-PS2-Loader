@@ -102,7 +102,13 @@ void rmEnd();
 int g_sysPademuLoad = 0;
 int g_sysXbox360Load = 0;
 int g_sysXboxoneLoad = 0;
+int g_sysPademuId = 0, g_sysPademuRet = 0;
+int g_sysXbox360Id = 0, g_sysXbox360Ret = 0;
+int g_sysXboxoneId = 0, g_sysXboxoneRet = 0;
 #endif
+int g_sysSmsutilsLoad = 0;
+int g_lastModuleId = 0;
+int g_lastModuleRet = 0;
 
 static void poweroffHandler(void *arg);
 
@@ -138,6 +144,8 @@ int sysLoadModuleBuffer(void *buffer, int size, int argc, char *argv)
     // load the module
     id = SifExecModuleBuffer(buffer, size, argc, argv, &ret);
     LOG("\t-- ID=%d, ret=%d\n", id, ret);
+    g_lastModuleId = id;
+    g_lastModuleRet = ret;
     if ((id < 0) || (ret)) {
         ret = -2;
         goto exit;
@@ -276,7 +284,7 @@ void sysReset(int modload_mask)
     // menu it was only loaded when Ethernet started, so pademu/xbox* failed
     // to load (unresolved import) for USB-only users. Load it unconditionally.
     LOG("[SMSUTILS]:\n");
-    sysLoadModuleBuffer(&smsutils_irx, size_smsutils_irx, 0, NULL);
+    g_sysSmsutilsLoad = sysLoadModuleBuffer(&smsutils_irx, size_smsutils_irx, 0, NULL);
 
 #ifdef PADEMU
     int ds3pads = 1; // only one pad enabled
@@ -303,10 +311,16 @@ void sysReset(int modload_mask)
     if (modload_mask & SYS_LOAD_USB_MODULES) {
         LOG("[PADEMU]:\n");
         g_sysPademuLoad = sysLoadModuleBuffer(&pademu_irx, size_pademu_irx, sizeof(padmenuArgs), (char *)padmenuArgs);
+        g_sysPademuId = g_lastModuleId;
+        g_sysPademuRet = g_lastModuleRet;
         LOG("[XBOX360USB]:\n");
         g_sysXbox360Load = sysLoadModuleBuffer(&xbox360usb_irx, size_xbox360usb_irx, 0, NULL);
+        g_sysXbox360Id = g_lastModuleId;
+        g_sysXbox360Ret = g_lastModuleRet;
         LOG("[XBOXONEUSB]:\n");
         g_sysXboxoneLoad = sysLoadModuleBuffer(&xboxoneusb_irx, size_xboxoneusb_irx, 0, NULL);
+        g_sysXboxoneId = g_lastModuleId;
+        g_sysXboxoneRet = g_lastModuleRet;
     }
 #endif
 

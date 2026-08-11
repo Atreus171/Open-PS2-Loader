@@ -27,10 +27,19 @@ int sysLoadModuleBuffer(void *buffer, int size, int argc, char *argv);
 // visible on-screen instead of being silently dropped.
 extern int g_sysUsbdLoad;
 extern int g_sysUsbmassLoad;
+extern int g_sysSmsutilsLoad;
+extern int g_lastModuleId;
+extern int g_lastModuleRet;
 #ifdef PADEMU
 extern int g_sysPademuLoad;
 extern int g_sysXbox360Load;
 extern int g_sysXboxoneLoad;
+extern int g_sysPademuId;
+extern int g_sysPademuRet;
+extern int g_sysXbox360Id;
+extern int g_sysXbox360Ret;
+extern int g_sysXboxoneId;
+extern int g_sysXboxoneRet;
 #endif
 int sysCheckMC(void);
 int sysCheckVMC(const char *prefix, const char *sep, char *name, int createSize, vmc_superblock_t *vmc_superblock);

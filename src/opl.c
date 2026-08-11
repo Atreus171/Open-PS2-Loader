@@ -2067,10 +2067,13 @@ int main(int argc, char *argv[])
     // Surface pad-emulation module load failures on-screen instead of
     // silently ignoring them (sysLoadModuleBuffer logs only with __DEBUG).
     if (g_sysPademuLoad != 0 || g_sysXbox360Load != 0 || g_sysXboxoneLoad != 0 ||
-        g_sysUsbdLoad != 0 || g_sysUsbmassLoad != 0) {
+        g_sysUsbdLoad != 0 || g_sysUsbmassLoad != 0 || g_sysSmsutilsLoad != 0) {
         char diag[192];
-        snprintf(diag, sizeof(diag), "PadEmu module load failed\nusbd=%d usbmass=%d pademu=%d x360=%d xone=%d",
-                 g_sysUsbdLoad, g_sysUsbmassLoad, g_sysPademuLoad, g_sysXbox360Load, g_sysXboxoneLoad);
+        snprintf(diag, sizeof(diag), "%s\nusbd=%d usbmass=%d smsutils=%d\npademu=%d id=%d ret=%d\nx360=%d id=%d ret=%d\nxone=%d id=%d ret=%d",
+                 OPL_VERSION, g_sysUsbdLoad, g_sysUsbmassLoad, g_sysSmsutilsLoad,
+                 g_sysPademuLoad, g_sysPademuId, g_sysPademuRet,
+                 g_sysXbox360Load, g_sysXbox360Id, g_sysXbox360Ret,
+                 g_sysXboxoneLoad, g_sysXboxoneId, g_sysXboxoneRet);
         guiMsgBox(diag, 0, NULL);
     }
 #endif
