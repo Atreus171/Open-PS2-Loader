@@ -566,7 +566,7 @@ struct UIItem diaPadEmuConfig[] = {
 
     {UI_LABEL, 0, 1, 1, -1, -50, 0, {.label = {NULL, _STR_PADEMU_MODULES}}},
     {UI_SPACER},
-    {UI_ENUM, PADCFG_PADEMU_MODULES_LIST, 1, 1, _STR_HINT_PADEMU_MODULES, 0, 0, {.intvalue = {0, 0}}},
+    {UI_BUTTON, PADCFG_PADEMU_MODULES_SET, 1, 1, _STR_HINT_PADEMU_MODULES, 0, 0, {.label = {NULL, _STR_CONFIGURE}}},
     {UI_BREAK},
     {UI_BREAK},
 
@@ -622,6 +622,52 @@ struct UIItem diaPadEmuConfig[] = {
     {UI_BREAK},
 
     {UI_OK, 0, 1, 1, -1, 0, 0, {.label = {NULL, _STR_OK}}},
+
+    // end of dialog
+    {UI_TERMINATOR}};
+
+struct UIItem diaPadEmuModules[] = {
+    {UI_LABEL, 0, 1, 1, -1, 0, 0, {.label = {NULL, _STR_PADEMU_MODULES}}},
+    {UI_SPLITTER},
+
+    {UI_LABEL, 0, 1, 1, -1, -50, 0, {.label = {"DS3 USB", -1}}},
+    {UI_SPACER},
+    {UI_BOOL, PADCFG_PADEMU_MODULES_START + 0, 1, 1, _STR_HINT_PADEMU_MODULES, 0, 0, {.intvalue = {1, 1}}},
+    {UI_BREAK},
+
+    {UI_LABEL, 0, 1, 1, -1, -50, 0, {.label = {"DS3 BT", -1}}},
+    {UI_SPACER},
+    {UI_BOOL, PADCFG_PADEMU_MODULES_START + 1, 1, 1, _STR_HINT_PADEMU_MODULES, 0, 0, {.intvalue = {1, 1}}},
+    {UI_BREAK},
+
+    {UI_LABEL, 0, 1, 1, -1, -50, 0, {.label = {"DS4 USB", -1}}},
+    {UI_SPACER},
+    {UI_BOOL, PADCFG_PADEMU_MODULES_START + 2, 1, 1, _STR_HINT_PADEMU_MODULES, 0, 0, {.intvalue = {1, 1}}},
+    {UI_BREAK},
+
+    {UI_LABEL, 0, 1, 1, -1, -50, 0, {.label = {"DS4 BT", -1}}},
+    {UI_SPACER},
+    {UI_BOOL, PADCFG_PADEMU_MODULES_START + 3, 1, 1, _STR_HINT_PADEMU_MODULES, 0, 0, {.intvalue = {1, 1}}},
+    {UI_BREAK},
+
+    {UI_LABEL, 0, 1, 1, -1, -50, 0, {.label = {"Xbox 360 USB", -1}}},
+    {UI_SPACER},
+    {UI_BOOL, PADCFG_PADEMU_MODULES_START + 4, 1, 1, _STR_HINT_PADEMU_MODULES, 0, 0, {.intvalue = {1, 1}}},
+    {UI_BREAK},
+
+    {UI_LABEL, 0, 1, 1, -1, -50, 0, {.label = {"Xbox One USB", -1}}},
+    {UI_SPACER},
+    {UI_BOOL, PADCFG_PADEMU_MODULES_START + 5, 1, 1, _STR_HINT_PADEMU_MODULES, 0, 0, {.intvalue = {1, 1}}},
+    {UI_BREAK},
+
+    {UI_LABEL, 0, 1, 1, -1, -50, 0, {.label = {"HID USB", -1}}},
+    {UI_SPACER},
+    {UI_BOOL, PADCFG_PADEMU_MODULES_START + 6, 1, 1, _STR_HINT_PADEMU_MODULES, 0, 0, {.intvalue = {1, 1}}},
+    {UI_BREAK},
+
+    {UI_BREAK},
+    {UI_OK, 0, 1, 1, -1, 0, 0, {.label = {NULL, _STR_OK}}},
+    {UI_BREAK},
 
     // end of dialog
     {UI_TERMINATOR}};

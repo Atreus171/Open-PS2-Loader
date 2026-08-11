@@ -153,7 +153,6 @@ enum UI_ITEMS {
     PADCFG_PADEMU_SOURCE,
     PADCFG_PADEMU_CONFIG,
     PADCFG_PADEMU_ENABLE,
-    PADCFG_PADEMU_MODULES_LIST,
     PADCFG_PADEMU_PORT,
     PADCFG_PADEMU_VIB,
     PADCFG_PADPORT,
@@ -178,6 +177,8 @@ enum UI_ITEMS {
     PADCFG_PADEMU_WORKAROUND,
     PADCFG_PADEMU_WORKAROUND_STR,
     PADCFG_PADEMU_MODULES_SET,
+    PADCFG_PADEMU_MODULES_START,
+    PADCFG_PADEMU_MODULES_END = PADCFG_PADEMU_MODULES_START + 7,
 
     PADMACRO_GLOBAL_BUTTON,
     PADMACRO_CFG_SOURCE,
@@ -209,6 +210,7 @@ enum UI_ITEMS {
 extern struct UIItem diaPadEmuConfig[];
 extern struct UIItem diaPadMacroConfig[];
 extern struct UIItem diaPadEmuInfo[];
+extern struct UIItem diaPadEmuModules[];
 #endif
 
 extern struct UIItem diaNetConfig[];

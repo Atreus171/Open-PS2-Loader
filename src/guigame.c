@@ -762,6 +762,21 @@ static int guiGamePadEmuInfoUpdater(int modified)
     return 0;
 }
 
+static int guiGamePadEmuModulesUpdater(int modified)
+{
+    int i, val;
+    int modules = 0;
+
+    for (i = 0; i < PADCFG_PADEMU_MODULES_END - PADCFG_PADEMU_MODULES_START; i++) {
+        diaGetInt(diaPadEmuModules, PADCFG_PADEMU_MODULES_START + i, &val);
+        modules |= (val & 1) << i;
+    }
+
+    gPadEmuModules = modules;
+
+    return 0;
+}
+
 void guiGameShowPadEmuConfig(int forceGlobal)
 {
     const char *settingsSource[] = {_l(_STR_GLOBAL_SETTINGS), _l(_STR_PERGAME_SETTINGS), NULL};
@@ -830,6 +845,13 @@ void guiGameShowPadEmuConfig(int forceGlobal)
             ver_set = 0;
             feat_set = 0;
             diaExecuteDialog(diaPadEmuInfo, -1, 1, &guiGamePadEmuInfoUpdater);
+        }
+
+        if (result == PADCFG_PADEMU_MODULES_SET) {
+            int j;
+            for (j = 0; j < PADCFG_PADEMU_MODULES_END - PADCFG_PADEMU_MODULES_START; j++)
+                diaSetInt(diaPadEmuModules, PADCFG_PADEMU_MODULES_START + j, (gPadEmuModules >> j) & 1);
+            diaExecuteDialog(diaPadEmuModules, -1, 1, &guiGamePadEmuModulesUpdater);
         }
 
         if (result == UIID_BTN_OK)
