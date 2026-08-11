@@ -2070,7 +2070,7 @@ int main(int argc, char *argv[])
         g_sysUsbdLoad != 0 || g_sysUsbmassLoad != 0 || g_sysSmsutilsLoad != 0) {
         char diag[256];
         snprintf(diag, sizeof(diag),
-                 "%s\nsmu=%d(%d,%d) usd=%d usm=%d\npademu=%d id=%d ret=%d\nx360=%d id=%d ret=%d\nxone=%d id=%d ret=%d\nds34u=%d id=%d ret=%d\nds34b=%d id=%d ret=%d",
+                 "  %s\n  smu=%d(%d,%d) usd=%d usm=%d\n  pademu=%d id=%d ret=%d\n  x360=%d id=%d ret=%d\n  xone=%d id=%d ret=%d\n  ds34u=%d id=%d ret=%d\n  ds34b=%d id=%d ret=%d",
                  OPL_VERSION, g_sysSmsutilsLoad, g_sysSmsutilsId, g_sysSmsutilsRet,
                  g_sysUsbdLoad, g_sysUsbmassLoad,
                  g_sysPademuLoad, g_sysPademuId, g_sysPademuRet,
