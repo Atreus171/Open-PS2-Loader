@@ -105,8 +105,11 @@ int g_sysXboxoneLoad = 0;
 int g_sysPademuId = 0, g_sysPademuRet = 0;
 int g_sysXbox360Id = 0, g_sysXbox360Ret = 0;
 int g_sysXboxoneId = 0, g_sysXboxoneRet = 0;
+int g_sysDs34usbLoad = 0, g_sysDs34usbId = 0, g_sysDs34usbRet = 0;
+int g_sysDs34btLoad = 0, g_sysDs34btId = 0, g_sysDs34btRet = 0;
 #endif
 int g_sysSmsutilsLoad = 0;
+int g_sysSmsutilsId = 0, g_sysSmsutilsRet = 0;
 int g_lastModuleId = 0;
 int g_lastModuleRet = 0;
 
@@ -285,6 +288,8 @@ void sysReset(int modload_mask)
     // to load (unresolved import) for USB-only users. Load it unconditionally.
     LOG("[SMSUTILS]:\n");
     g_sysSmsutilsLoad = sysLoadModuleBuffer(&smsutils_irx, size_smsutils_irx, 0, NULL);
+    g_sysSmsutilsId = g_lastModuleId;
+    g_sysSmsutilsRet = g_lastModuleRet;
 
 #ifdef PADEMU
     int ds3pads = 1; // only one pad enabled
@@ -294,9 +299,13 @@ void sysReset(int modload_mask)
 
     if (modload_mask & SYS_LOAD_USB_MODULES) {
         LOG("[DS34_USB]:\n");
-        sysLoadModuleBuffer(&ds34usb_irx, size_ds34usb_irx, 4, (char *)&ds3pads);
+        g_sysDs34usbLoad = sysLoadModuleBuffer(&ds34usb_irx, size_ds34usb_irx, 4, (char *)&ds3pads);
+        g_sysDs34usbId = g_lastModuleId;
+        g_sysDs34usbRet = g_lastModuleRet;
         LOG("[DS34_BT]:\n");
-        sysLoadModuleBuffer(&ds34bt_irx, size_ds34bt_irx, 4, (char *)&ds3pads);
+        g_sysDs34btLoad = sysLoadModuleBuffer(&ds34bt_irx, size_ds34bt_irx, 4, (char *)&ds3pads);
+        g_sysDs34btId = g_lastModuleId;
+        g_sysDs34btRet = g_lastModuleRet;
 
         ds34usb_init();
         ds34bt_init();

@@ -28,6 +28,8 @@ int bdmDeviceModeStarted;
 
 int g_sysUsbdLoad = 0;
 int g_sysUsbmassLoad = 0;
+int g_sysUsbdId = 0, g_sysUsbdRet = 0;
+int g_sysUsbmassId = 0, g_sysUsbmassRet = 0;
 
 static item_list_t bdmDeviceList[MAX_BDM_DEVICES];
 static int bdmDeviceListInitialized = 0;
@@ -124,8 +126,12 @@ void bdmLoadModules(void)
     // Load USB Block Device drivers
     LOG("[USBD]:\n");
     g_sysUsbdLoad = sysLoadModuleBuffer(&usbd_irx, size_usbd_irx, 0, NULL);
+    g_sysUsbdId = g_lastModuleId;
+    g_sysUsbdRet = g_lastModuleRet;
     LOG("[USBMASS_BD]:\n");
     g_sysUsbmassLoad = sysLoadModuleBuffer(&usbmass_bd_irx, size_usbmass_bd_irx, 0, NULL);
+    g_sysUsbmassId = g_lastModuleId;
+    g_sysUsbmassRet = g_lastModuleRet;
 
     // Load Optional Block Device drivers
     ioPutRequest(IO_CUSTOM_SIMPLEACTION, &bdmLoadBlockDeviceModules);

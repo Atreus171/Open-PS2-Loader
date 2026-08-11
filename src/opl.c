@@ -2068,12 +2068,16 @@ int main(int argc, char *argv[])
     // silently ignoring them (sysLoadModuleBuffer logs only with __DEBUG).
     if (g_sysPademuLoad != 0 || g_sysXbox360Load != 0 || g_sysXboxoneLoad != 0 ||
         g_sysUsbdLoad != 0 || g_sysUsbmassLoad != 0 || g_sysSmsutilsLoad != 0) {
-        char diag[192];
-        snprintf(diag, sizeof(diag), "%s\nusbd=%d usbmass=%d smsutils=%d\npademu=%d id=%d ret=%d\nx360=%d id=%d ret=%d\nxone=%d id=%d ret=%d",
-                 OPL_VERSION, g_sysUsbdLoad, g_sysUsbmassLoad, g_sysSmsutilsLoad,
+        char diag[256];
+        snprintf(diag, sizeof(diag),
+                 "%s\nsmu=%d(%d,%d) usd=%d usm=%d\npademu=%d id=%d ret=%d\nx360=%d id=%d ret=%d\nxone=%d id=%d ret=%d\nds34u=%d id=%d ret=%d\nds34b=%d id=%d ret=%d",
+                 OPL_VERSION, g_sysSmsutilsLoad, g_sysSmsutilsId, g_sysSmsutilsRet,
+                 g_sysUsbdLoad, g_sysUsbmassLoad,
                  g_sysPademuLoad, g_sysPademuId, g_sysPademuRet,
                  g_sysXbox360Load, g_sysXbox360Id, g_sysXbox360Ret,
-                 g_sysXboxoneLoad, g_sysXboxoneId, g_sysXboxoneRet);
+                 g_sysXboxoneLoad, g_sysXboxoneId, g_sysXboxoneRet,
+                 g_sysDs34usbLoad, g_sysDs34usbId, g_sysDs34usbRet,
+                 g_sysDs34btLoad, g_sysDs34btId, g_sysDs34btRet);
         guiMsgBox(diag, 0, NULL);
     }
 #endif
