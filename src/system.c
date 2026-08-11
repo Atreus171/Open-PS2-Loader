@@ -542,6 +542,15 @@ static unsigned int sendIrxKernelRAM(const char *startup, const char *mode_str, 
     if (gEnablePadEmu) {
         irxptr_tab[modcount].info = size_pademu_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_PADEMU);
         irxptr_tab[modcount++].ptr = (void *)&pademu_irx;
+
+        if (gPadEmuModules & (1 << 4)) {
+            irxptr_tab[modcount].info = size_xbox360usb_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_XBOX360USB);
+            irxptr_tab[modcount++].ptr = (void *)&xbox360usb_irx;
+        }
+        if (gPadEmuModules & (1 << 5)) {
+            irxptr_tab[modcount].info = size_xboxoneusb_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_XBOXONEUSB);
+            irxptr_tab[modcount++].ptr = (void *)&xboxoneusb_irx;
+        }
     }
 #endif
 
