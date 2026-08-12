@@ -4,7 +4,7 @@ IOP_OBJS_DIR = obj.xbox360usb/
 
 IOP_OBJS := $(IOP_OBJS:%=$(IOP_OBJS_DIR)%)
 
-IOP_CFLAGS += -Wall -fno-builtin -DUSE_SMSUTILS
+IOP_CFLAGS += -Wall -fno-builtin
 IOP_LDFLAGS += -s
 
 all: OBJ_DIR $(IOP_BIN)

@@ -282,10 +282,13 @@ void sysReset(int modload_mask)
     LOG("[AUDSRV]:\n");
     sysLoadModuleBuffer(&audsrv_irx, size_audsrv_irx, 0, NULL);
 
-    // smsutils provides mips_memcpy/mips_memset used by pademu (built with
-    // USE_SMSUTILS). In-game it is always present via cdvdman, but in the
-    // menu it was only loaded when Ethernet started, so pademu/xbox* failed
-    // to load (unresolved import) for USB-only users. Load it unconditionally.
+    // The pademu-family used to be built with USE_SMSUTILS, importing the
+    // smsutils library (mips_memcpy/mips_memset). In-game that library is
+    // registered by cdvdman, but in the menu the network SMSUTILS.irx does not
+    // register it on the SCE kernel, so the modules failed to bind (id -201).
+    // The modules now use sysclib memcpy/memset like ds34usb (no smsutils
+    // import), and this load is kept unconditionally for anything that still
+    // needs the library.
     LOG("[SMSUTILS]:\n");
     g_sysSmsutilsLoad = sysLoadModuleBuffer(&smsutils_irx, size_smsutils_irx, 0, NULL);
     g_sysSmsutilsId = g_lastModuleId;
